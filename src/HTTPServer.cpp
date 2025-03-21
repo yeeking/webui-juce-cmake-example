@@ -16,7 +16,6 @@ HttpServerThread::HttpServerThread()  : juce::Thread("HTTP Server Thread")
 
     }
     svr.Get("/index.html", [](const httplib::Request& req, httplib::Response& res) {
-        std::cout << "processing / " << std::endl;
         int size = 0;
         const char* data = BinaryData::getNamedResource(BinaryData::namedResourceList[0], size);
     

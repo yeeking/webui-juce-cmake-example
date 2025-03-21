@@ -20,5 +20,10 @@ cmake --build build --config Debug -j 12 # optionally set number of parallel pro
 
 If you want to do rapid development of your UI, having the index.html compiled into the binary data blob can prove a bit slow. Instead, you can work on the standalone app and have it serve the index.html UI file from the file system. Have a look in HTTPServer.cpp - there is some commented out code that serves from the file system instead. 
 
-The embedded web server is the headerless cpp-httplib by Yuji Hirose from here: https://github.com/yhirose/cpp-httplib
+The embedded web server is the header-only cpp-httplib by Yuji Hirose from here: https://github.com/yhirose/cpp-httplib
 
+# TODO
+
+* web interface  -> cpp comms
+* cpp -> web interface comms
+* test on mac and windows

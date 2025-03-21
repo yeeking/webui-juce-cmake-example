@@ -127,6 +127,7 @@ bool PluginProcessor::isBusesLayoutSupported (const BusesLayout& layouts) const
 void PluginProcessor::processBlock (juce::AudioBuffer<float>& buffer,
                                               juce::MidiBuffer& midiMessages)
 {
+    // do your wow wow woo stuff here 
     juce::ignoreUnused (midiMessages);
 
     juce::ScopedNoDenormals noDenormals;
