@@ -34,6 +34,16 @@ void HttpServerThread::initAPI()
         }
     });
 
+    ///** start of server from file system code 
+    // this code can be used in the standalone app 
+    // to serve files from its 'ui' subdirectory
+    // for easy testing where you can edit the 
+    // std::string workingDir = getBinary().string();
+    // std::cout << "Serving from " << workingDir << "/../ui" << std::endl;
+    // auto ret = svr.set_mount_point("/", workingDir + "/../ui");
+    ///**  end of server from file system code 
+
+    // 'live' responders for button presses - call to the pluginprocessor 
     svr.Get("/button1", [this](const httplib::Request& req, httplib::Response& res) {
         this->pluginProc.api_sendMessage("Button 1 clicked");
     });
@@ -42,12 +52,6 @@ void HttpServerThread::initAPI()
     });
 
     
-    // this code can be used in the standalone app 
-    // to serve files from its 'ui' subdirectory
-    // for easy testing where you can edit the 
-    // std::string workingDir = getBinary().string();
-    // std::cout << "Serving from " << workingDir << "/../ui" << std::endl;
-    // auto ret = svr.set_mount_point("/", workingDir + "/../ui");
 
 }
 

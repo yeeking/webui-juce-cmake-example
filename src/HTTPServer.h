@@ -20,4 +20,6 @@ private:
     PluginProcessor& pluginProc; 
     httplib::Server svr;
     
+    JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (HttpServerThread)
+
 };

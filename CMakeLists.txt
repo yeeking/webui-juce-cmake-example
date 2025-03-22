@@ -20,6 +20,7 @@ juce_add_plugin(webui-example
     COPY_PLUGIN_AFTER_BUILD TRUE                                           # GarageBand 10.3 requires the first letter to be upper-case, and the remaining letters to be lower-case
     FORMATS AU VST3 Standalone                  # The formats to build. Other valid formats are: AAX Unity VST AU AUv3
     PRODUCT_NAME "webui-example"
+    NEEDS_WEB_BROWSER TRUE
     NEEDS_WEBVIEW2 TRUE    )
 
 juce_generate_juce_header(webui-example)
@@ -44,7 +45,7 @@ target_sources(webui-example
 target_compile_definitions(webui-example
     PUBLIC
     # JUCE_WEB_BROWSER and JUCE_USE_CURL would be on by default, but you might not need them.
-    # JUCE_WEB_BROWSER=0  # If you remove this, add `NEEDS_WEB_BROWSER TRUE` to the `juce_add_plugin` call
+    JUCE_WEB_BROWSER=1  # If you remove this, add `NEEDS_WEB_BROWSER TRUE` to the `juce_add_plugin` call
     JUCE_USE_CURL=0     # If you remove this, add `NEEDS_CURL TRUE` to the `juce_add_plugin` call
     JUCE_VST3_CAN_REPLACE_VST2=0
 )

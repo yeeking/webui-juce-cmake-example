@@ -3,7 +3,16 @@
 
 //==============================================================================
 PluginEditor::PluginEditor (PluginProcessor& p)
-    : AudioProcessorEditor (&p), processorRef (p)
+    : AudioProcessorEditor (&p), processorRef (p), 
+    webView{
+        juce::WebBrowserComponent::Options{}
+        .withBackend(juce::WebBrowserComponent::Options::Backend::webview2)
+        .withWinWebView2Options(juce::WebBrowserComponent::Options::WinWebView2{}
+        .withBackgroundColour(juce::Colours::blue)
+            // this may be necessary for some DAWs; include for safety
+        .withUserDataFolder(juce::File::getSpecialLocation(
+            juce::File::SpecialLocationType::tempDirectory)))
+    }
 {
     juce::ignoreUnused (processorRef);
     // Make sure that before the constructor has finished, you've set the
@@ -16,6 +25,7 @@ PluginEditor::PluginEditor (PluginProcessor& p)
 
     // Add WebView component to the editor
     addAndMakeVisible(webView);
+    
 }
 
 PluginEditor::~PluginEditor()
