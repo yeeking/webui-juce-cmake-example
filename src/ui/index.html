@@ -1,1 +1,26 @@
+<html>
+
+<body>
+
 <h1>I am served</h1>
+<button onclick="callAPI('button1')">Hit me</button>
+<button onclick="callAPI('button2')">and me</button>
+<script>
+
+
+function callAPI(endpoint){
+   fetch("/" + endpoint)
+        .then(response => {
+          console.log(response.toString())
+        })
+        .catch(error => {
+            console.log("Problem!");
+            console.log(error);
+        })
+
+}
+</script>
+
+</body>
+</html>
+

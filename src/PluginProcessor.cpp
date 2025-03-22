@@ -10,7 +10,7 @@ PluginProcessor::PluginProcessor()
                       #endif
                        .withOutput ("Output", juce::AudioChannelSet::stereo(), true)
                      #endif
-                       )
+                       ), apiServer{*this}
 {
 
     apiServer.startThread();  // Launch server in the background
@@ -190,3 +190,11 @@ juce::AudioProcessor* JUCE_CALLTYPE createPluginFilter()
 {
     return new PluginProcessor();
 }
+
+
+
+void PluginProcessor::api_sendMessage(std::string msg)
+{
+    DBG("PluginProcess received a message " << msg);
+}
+

@@ -47,6 +47,11 @@ public:
     void getStateInformation (juce::MemoryBlock& destData) override;
     void setStateInformation (const void* data, int sizeInBytes) override;
 
+    // things for the api server to call
+    // really you should make an 'interface' for this 
+    // but for simplicity in this demo
+    void api_sendMessage(std::string msg);
+
 private:
     HttpServerThread apiServer;
     //==============================================================================

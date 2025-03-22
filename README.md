@@ -24,6 +24,6 @@ The embedded web server is the header-only cpp-httplib by Yuji Hirose from here:
 
 # TODO
 
-* web interface  -> cpp comms
+* [DONE] web interface  -> cpp comms
 * cpp -> web interface comms
 * test on mac and windows
