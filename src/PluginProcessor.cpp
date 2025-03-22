@@ -193,8 +193,12 @@ juce::AudioProcessor* JUCE_CALLTYPE createPluginFilter()
 
 
 
-void PluginProcessor::api_sendMessage(std::string msg)
+void PluginProcessor::messageReceivedFromWebAPI(std::string msg)
 {
     DBG("PluginProcess received a message " << msg);
+    if (auto* editor = dynamic_cast<PluginEditor*>(getActiveEditor()))
+    {
+        editor->updateUIFromProcessor("Got your message " + msg);
+    }
 }
 

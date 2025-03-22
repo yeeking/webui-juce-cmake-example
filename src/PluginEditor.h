@@ -15,6 +15,8 @@ public:
     void paint (juce::Graphics&) override;
     void resized() override;
 
+    void updateUIFromProcessor(const juce::String& msg);
+
 private:
     // This reference is provided as a quick way for your editor to
     // access the processor object that created it.

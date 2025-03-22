@@ -45,10 +45,10 @@ void HttpServerThread::initAPI()
 
     // 'live' responders for button presses - call to the pluginprocessor 
     svr.Get("/button1", [this](const httplib::Request& req, httplib::Response& res) {
-        this->pluginProc.api_sendMessage("Button 1 clicked");
+        this->pluginProc.messageReceivedFromWebAPI("Button 1 clicked");
     });
     svr.Get("/button2", [this](const httplib::Request& req, httplib::Response& res) {
-        this->pluginProc.api_sendMessage("Button 2 clicked");
+        this->pluginProc.messageReceivedFromWebAPI("Button 2 clicked");
     });
 
     

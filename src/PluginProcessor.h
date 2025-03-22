@@ -50,7 +50,7 @@ public:
     // things for the api server to call
     // really you should make an 'interface' for this 
     // but for simplicity in this demo
-    void api_sendMessage(std::string msg);
+    void messageReceivedFromWebAPI(std::string msg);
 
 private:
     HttpServerThread apiServer;

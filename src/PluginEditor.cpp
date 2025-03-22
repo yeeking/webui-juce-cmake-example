@@ -5,6 +5,7 @@
 PluginEditor::PluginEditor (PluginProcessor& p)
     : AudioProcessorEditor (&p), processorRef (p), 
     webView{
+        // no idea if this stuff is needed... but it looks useful
         juce::WebBrowserComponent::Options{}
         .withBackend(juce::WebBrowserComponent::Options::Backend::webview2)
         .withWinWebView2Options(juce::WebBrowserComponent::Options::WinWebView2{}
@@ -41,4 +42,20 @@ void PluginEditor::paint (juce::Graphics& g)
 void PluginEditor::resized()
 {
     webView.setBounds(getLocalBounds()); // Make web view fill entire UI
+}
+
+
+void PluginEditor::updateUIFromProcessor(const juce::String& msg)
+{  
+    // create an object and convert it to a json string 
+    juce::DynamicObject::Ptr obj = new juce::DynamicObject();
+    obj->setProperty("msg", msg);
+    juce::var data(obj);
+    juce::String json = juce::JSON::toString(data);
+    
+    webView.evaluateJavascript("handleCppMessage(" + json + ");", nullptr);
+    
+    // std::string msg_as_json = "{\"msg\":\""+ msg + "\"}";
+    // juce::JSON::toString({"msg":msg});
+    // webView.evaluateJavascript("backendCall('"+msg_as_json+"')");
 }
