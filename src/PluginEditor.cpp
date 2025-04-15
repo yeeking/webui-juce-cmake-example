@@ -52,8 +52,16 @@ void PluginEditor::updateUIFromProcessor(const juce::String& msg)
     obj->setProperty("msg", msg);
     juce::var data(obj);
     juce::String json = juce::JSON::toString(data);
-    
-    webView.evaluateJavascript("handleCppMessage(" + json + ");", nullptr);
+    // eval some javascript in the webui which causes it to call
+    // a function called handleCppMessage with the data
+    webView.evaluateJavascript("handleCppMessage(" + json + ");", 
+        [](juce::WebBrowserComponent::EvaluationResult result) {
+            std::cout << "PluginEditor::updateUIFromProcessor js eval completed with res : " << result.getResult() << std::endl;
+            // code to run once the javascript has been evaluated ... 
+            // e.g. maybe re-enable the animation loop if you are waiting
+            // for a UI update 
+        }
+    );
     
     // std::string msg_as_json = "{\"msg\":\""+ msg + "\"}";
     // juce::JSON::toString({"msg":msg});

@@ -13,7 +13,7 @@
 // the cpp back end will send us messages
 function handleCppMessage(data){
   // data = JSON.parse(json_string);
-  console.log(data["msg"])
+  console.log("javascript function  handleCppMessage received some data: " + data["msg"])
   msg_div = document.getElementById("messages");
   msg_div.innerText = data.msg;
 
