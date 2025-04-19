@@ -21,7 +21,33 @@ void HttpServerThread::initAPI()
         DBG("Got binary file " << BinaryData::originalFilenames[i]);
 
     }
+
+// this macro can be controlled
+// from the CMakeLists.txt file - you can choose
+// if you want to serve your web files from disk or memory 
+// serving from disk means you can quickly edit and reload for testing
+#ifdef LOCAL_WEBUI    
+    ///** start of server from file system code 
+    // this code can be used in the standalone app 
+    // to serve files from its 'ui' subdirectory
+    // for easy testing where you can edit the 
+    std::string workingDir = getBinary().string();
+    std::string uiDir = workingDir + "/../../../../src/ui/";
+    std::cout << "HTTPServer::  TESTING UI MODE: Serving from " << uiDir << std::endl;
+    auto ret = svr.set_mount_point("/", uiDir);
+    if (!ret) {
+        // The specified base directory doesn't exist...
+        std::cout << "Warning: trying to serve from a folder that does not exist " << std::endl;
+    }
+      
+    ///**  end of server from file system code 
+
+#else
+    std::cout << "HTTPServer:: serving from memory not disk " << std::endl;
+
+    // Deploy version
     // route for the main index file
+    /// *** start of serving files from the linked 'binary'
     svr.Get("/index.html", [](const httplib::Request& req, httplib::Response& res) {
         int size = 0;
         const char* data = BinaryData::getNamedResource(BinaryData::namedResourceList[0], size);
@@ -33,15 +59,11 @@ void HttpServerThread::initAPI()
             res.set_content("404: File not found", "text/plain");
         }
     });
+    ///*** end of serving files from the linked 'binary'
+#endif
 
-    ///** start of server from file system code 
-    // this code can be used in the standalone app 
-    // to serve files from its 'ui' subdirectory
-    // for easy testing where you can edit the 
-    // std::string workingDir = getBinary().string();
-    // std::cout << "Serving from " << workingDir << "/../ui" << std::endl;
-    // auto ret = svr.set_mount_point("/", workingDir + "/../ui");
-    ///**  end of server from file system code 
+
+
 
     // 'live' responders for button presses - call to the pluginprocessor 
     svr.Get("/button1", [this](const httplib::Request& req, httplib::Response& res) {

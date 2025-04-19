@@ -72,3 +72,16 @@ add_custom_command(
         "$<TARGET_FILE_DIR:webui-example>/ui"
     COMMENT "Copying UI files to output folder"
 )
+
+
+# set this to ON and the http server will serve the UI files from disk instead of memory
+# which makes it easier to do quick UI iterations
+set(LOCAL_WEBUI ON) 
+
+if(LOCAL_WEBUI)
+    target_compile_definitions(webui-example PRIVATE LOCAL_WEBUI)
+    message(STATUS "Serving UI from disk: LOCAL_WEBUI is ${LOCAL_WEBUI}")
+else()
+    message(STATUS "Serving UI from memory: LOCAL_WEBUI is ${LOCAL_WEBUI}")   
+endif()
+
